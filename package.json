@@ -1,0 +1,8 @@
+{
+    "name": "StringBuilder",
+    "description": "Java Style String Builder",
+    "version": "1.0.0",
+    "author": "Halil İbrahim ŞAFAK",
+    "dependencies": {},
+    "devDependencies": {}
+}
