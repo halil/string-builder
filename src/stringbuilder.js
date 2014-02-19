@@ -1,16 +1,21 @@
-var StringBuilder = function(v) {
+"use strict";
+
+function StringBuilder(v) {
     this.s = [];
     this.append(v)
 };
+
 StringBuilder.prototype.append = function(v) {
     if (v)
         this.s.push(v)
 };
+
 StringBuilder.prototype.appendLine = function(v) {
     if (v)
         this.s.push(v);
     this.s.push("\r\n")
 };
+
 StringBuilder.prototype.appendFormat = function() {
     var p = /({?){([^}]+)}(}?)/g;
     var a = arguments, v = a[0], o = false;
@@ -33,9 +38,13 @@ StringBuilder.prototype.appendFormat = function() {
     }
     this.s.push(r.join(''))
 };
+
 StringBuilder.prototype.clear = function() {
     this.s.length = 0
 };
+
 StringBuilder.prototype.toString = function() {
     return this.s.length == 0 ? "" : this.s.join("")
 };
+
+module.exports = new StringBuilder();

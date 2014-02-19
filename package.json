@@ -1,8 +1,12 @@
 {
-    "name": "StringBuilder",
-    "description": "Java Style String Builder",
-    "version": "1.0.0",
-    "author": "Halil İbrahim ŞAFAK",
+    "name": "string-builder",
+    "description": "",
+    "version": "0.1.3",
+    "author": {
+    "name": "Halil İbrahim ŞAFAK",
+    "email": "hibrahimsafak@gmail.com"
+    },
     "dependencies": {},
-    "devDependencies": {}
+    "devDependencies": {},
+    "main": "./src/stringbuilder.js"
 }
