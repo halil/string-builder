@@ -1,5 +1,8 @@
 # StringBuilder
 
+[![NPM](https://nodei.co/npm/string-builder.png)](https://nodei.co/npm/string-builder/)
+
+
 CurrentVersion: `0.1.3`
 
 # Installation
