@@ -2,18 +2,21 @@
 
 function StringBuilder(v) {
     this.s = [];
-    this.append(v)
+    this.append(v);
 };
 
 StringBuilder.prototype.append = function(v) {
-    if (v)
-        this.s.push(v)
+    if (v){
+        this.s.push(v);
+    }
 };
 
 StringBuilder.prototype.appendLine = function(v) {
-    if (v)
+    if (v){
         this.s.push(v);
-    this.s.push("\r\n")
+    }
+        
+    this.s.push("\r\n");
 };
 
 StringBuilder.prototype.appendFormat = function() {
