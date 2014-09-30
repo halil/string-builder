@@ -25,7 +25,7 @@ StringBuilder.prototype.appendFormat = function() {
     if (a.length == 2) {
         if (typeof a[1] == 'object' && a[1].constructor != String) {
             a = a[1];
-            o = true
+            o = true;
         }
     }
     var s = v.split(p);
@@ -36,18 +36,18 @@ StringBuilder.prototype.appendFormat = function() {
             if (s[i + 1] == '{' && s[i + 3] == '}')
                 r.push(s[i + 1], s[i + 2], s[i + 3]);
             else
-                r.push(s[i + 1], a[o ? s[i + 2] : parseInt(s[i + 2], 10) + 1], s[i + 3])
+                r.push(s[i + 1], a[o ? s[i + 2] : parseInt(s[i + 2], 10) + 1], s[i + 3]);
         }
     }
-    this.s.push(r.join(''))
+    this.s.push(r.join(''));
 };
 
 StringBuilder.prototype.clear = function() {
-    this.s.length = 0
+    this.s.length = 0;
 };
 
 StringBuilder.prototype.toString = function() {
-    return this.s.length == 0 ? "" : this.s.join("")
+    return this.s.length == 0 ? "" : this.s.join("");
 };
 
 module.exports = new StringBuilder();
