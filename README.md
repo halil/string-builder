@@ -1,4 +1,5 @@
 # StringBuilder
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/hibrahimsafak/StringBuilder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![NPM](https://nodei.co/npm/string-builder.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/string-builder/)
 
