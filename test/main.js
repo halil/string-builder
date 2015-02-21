@@ -1,4 +1,5 @@
-var sb = require("../src/StringBuilder");
+var StringBuilder = require("../src/StringBuilder");
+var sb = new StringBuilder();
 
 sb.append("normal text ");
 sb.appendFormat("formatted text {0},{1}", "format 1", "format 2");

@@ -17,7 +17,8 @@ CurrentVersion: `0.1.3`
 ### Initialize string-builder
 
 ```
-var sb = require("string-builder");
+var StringBuilder = require("../src/StringBuilder");
+var sb = new StringBuilder();
 
 sb.append("normal text ");
 sb.appendFormat("formatted text {0},{1}", "format 1", "format 2");
