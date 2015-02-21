@@ -9,6 +9,7 @@ StringBuilder.prototype.append = function (v) {
   if (v) {
     this.s.push(v)
   }
+  return this;
 };
 
 StringBuilder.prototype.appendLine = function (v) {
@@ -16,6 +17,7 @@ StringBuilder.prototype.appendLine = function (v) {
     this.s.push(v);
   }
   this.s.push("\r\n")
+  return this;
 };
 
 StringBuilder.prototype.appendFormat = function () {
