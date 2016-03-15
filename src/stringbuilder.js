@@ -13,10 +13,10 @@ StringBuilder.prototype.append = function (v) {
 };
 
 StringBuilder.prototype.appendLine = function (v) {
+  this.s.push("\r\n");
   if (v) {
     this.s.push(v);
   }
-  this.s.push("\r\n")
   return this;
 };
 
