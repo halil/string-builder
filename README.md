@@ -5,7 +5,7 @@
 
 An string builder for [Node.js](http://nodejs.org/)
 
-### npm install
+### Installation
 
 ```
 npm install string-builder
@@ -32,7 +32,7 @@ formatted text format 1,format 2
 */
 
 ```
-## license
+## License
 The MIT License (MIT)
 
 Copyright © 2014 Halil İbrahim ŞAFAK
