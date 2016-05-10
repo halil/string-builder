@@ -3,21 +3,18 @@
 
 [![NPM](https://nodei.co/npm/string-builder.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/string-builder/)
 
-CurrentVersion: `0.1.3`
+An string builder for [Node.js](http://nodejs.org/)
 
-# Installation
-
-`npm install string-builder`
-
-
-# Example
-
-## Use In NodeJS
-
-### Initialize string-builder
+### npm install
 
 ```
-var StringBuilder = require("../src/StringBuilder");
+npm install string-builder
+```
+
+### Usage
+
+```js
+var StringBuilder = require("string-builder");
 var sb = new StringBuilder();
 
 sb.append("normal text ");
@@ -35,9 +32,8 @@ formatted text format 1,format 2
 */
 
 ```
-
-
-# The MIT License (MIT)
+## license
+The MIT License (MIT)
 
 Copyright © 2014 Halil İbrahim ŞAFAK
 
