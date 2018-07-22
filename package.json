@@ -1,28 +1,29 @@
 {
-	"name": "string-builder",
-	"description": "Simple Node.JS string builder.",
-	"version": "0.1.4",
-	"author": {
-		"name": "Halil İbrahim ŞAFAK",
-		"email": "hibrahimsafak@gmail.com"
-	},
-	"main": "./src/stringbuilder.js",
-	"license": "MIT",
-	"keywords": [
-		"stringbuilder",
-		"string",
-		"builder",
-		"string-builder",
-		"string format",
-		"string builder",
-		"format"
-	],
-	"readmeFilename": "README.md",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/hibrahimsafak/StringBuilder.git"
-	},
-	"bugs": {
-		"url": "https://github.com/hibrahimsafak/StringBuilder/issues"
-	}
+  "name": "string-builder",
+  "description": "Simple Node.JS string builder.",
+  "version": "0.1.5",
+  "author": {
+    "name": "Halil İbrahim ŞAFAK",
+    "email": "hibrahimsafak@gmail.com"
+  },
+  "main": "./src/stringbuilder.js",
+  "license": "MIT",
+  "keywords": [
+    "stringbuilder",
+    "string",
+    "builder",
+    "string-builder",
+    "string format",
+    "string builder",
+    "format",
+    "nodejs"
+  ],
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hibrahimsafak/StringBuilder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hibrahimsafak/StringBuilder/issues"
+  }
 }
