@@ -1,7 +1,7 @@
 {
   "name": "string-builder",
   "description": "Simple Node.JS string builder.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": {
     "name": "Halil İbrahim ŞAFAK",
     "email": "hibrahimsafak@gmail.com"
