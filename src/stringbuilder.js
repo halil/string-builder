@@ -14,7 +14,7 @@ const StringBuilder = function StringBuilder(v) {
 };
 
 StringBuilder.prototype.append = function (v) {
-    if (typeof v === 'number' || typeof v === 'string') {
+    if (v != null) {
         this.s.push(v);
     }
 
@@ -24,7 +24,7 @@ StringBuilder.prototype.append = function (v) {
 StringBuilder.prototype.appendLine = function (v) {
     this.s.push(this.newline);
 
-    if (typeof v === 'number' || typeof v === 'string') {
+    if (v != null) {
         this.s.push(v);
     }
 
