@@ -11,7 +11,8 @@
     ".": {
       "import": "./src/stringbuilder.mjs",
       "require": "./src/stringbuilder.js"
-    }
+    },
+    "./src/*": "./src/*"
   },
   "types": "./index.d.ts",
   "license": "MIT",
