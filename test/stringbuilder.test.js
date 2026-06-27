@@ -139,6 +139,42 @@ describe("StringBuilder", () => {
         });
     });
 
+    describe("length", () => {
+        it("returns 0 for empty builder", () => {
+            expect(new StringBuilder().length).toBe(0);
+        });
+
+        it("returns correct character count", () => {
+            expect(new StringBuilder("hello").append(" world").length).toBe(11);
+        });
+
+        it("counts numbers and booleans correctly", () => {
+            expect(new StringBuilder().append(42).append(false).length).toBe(7);
+        });
+
+        it("updates after clear", () => {
+            const sb = new StringBuilder("hello");
+            sb.clear();
+            expect(sb.length).toBe(0);
+        });
+    });
+
+    describe("isEmpty", () => {
+        it("returns true for empty builder", () => {
+            expect(new StringBuilder().isEmpty).toBe(true);
+        });
+
+        it("returns false after append", () => {
+            expect(new StringBuilder("x").isEmpty).toBe(false);
+        });
+
+        it("returns true after clear", () => {
+            const sb = new StringBuilder("hello");
+            sb.clear();
+            expect(sb.isEmpty).toBe(true);
+        });
+    });
+
     describe("clear", () => {
         it("empties the buffer", () => {
             const sb = new StringBuilder("hello");
