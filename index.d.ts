@@ -7,6 +7,7 @@ declare class StringBuilder extends Stream {
     readonly isEmpty: boolean;
 
     append(v: any): this;
+    appendJoin(arr: any[], sep?: string): this;
     appendLine(v?: any): this;
     appendFormat(template: string, ...args: any[]): this;
     appendFormat(template: string, args: Record<string, any>): this;
