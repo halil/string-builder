@@ -116,6 +116,27 @@ describe("StringBuilder", () => {
             const sb = new StringBuilder();
             expect(sb.appendFormat("{0}", "x")).toBe(sb);
         });
+
+        it("applies :U specifier (uppercase)", () => {
+            expect(new StringBuilder().appendFormat("{0:U}", "hello").toString()).toBe("HELLO");
+        });
+
+        it("applies :L specifier (lowercase)", () => {
+            expect(new StringBuilder().appendFormat("{0:L}", "WORLD").toString()).toBe("world");
+        });
+
+        it("applies :n specifier (thousand separator)", () => {
+            const result = new StringBuilder().appendFormat("{0:n}", 1234567).toString();
+            expect(result).toBe((1234567).toLocaleString());
+        });
+
+        it("applies specifier with named placeholder", () => {
+            expect(new StringBuilder().appendFormat("{name:U}", { name: "alice" }).toString()).toBe("ALICE");
+        });
+
+        it("leaves value unchanged for unknown specifier", () => {
+            expect(new StringBuilder().appendFormat("{0:z}", "test").toString()).toBe("test");
+        });
     });
 
     describe("clear", () => {
