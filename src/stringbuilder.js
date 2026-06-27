@@ -78,6 +78,38 @@ class StringBuilder extends Stream {
         return this;
     }
 
+    prepend(v) {
+        if (v != null) {
+            this.s.unshift(v);
+        }
+
+        return this;
+    }
+
+    replace(search, replacement) {
+        if (this.s.length > 0) {
+            this.s = [this.s.join('').replace(search, String(replacement))];
+        }
+
+        return this;
+    }
+
+    replaceAll(search, replacement) {
+        if (this.s.length > 0) {
+            const str = this.s.join('');
+            if (typeof search === 'string') {
+                this.s = [str.split(search).join(String(replacement))];
+            } else {
+                const re = search.flags.includes('g')
+                    ? search
+                    : new RegExp(search.source, search.flags + 'g');
+                this.s = [str.replace(re, String(replacement))];
+            }
+        }
+
+        return this;
+    }
+
     appendJoin(arr, sep = '') {
         if (arr != null) {
             this.s.push(arr.join(sep));

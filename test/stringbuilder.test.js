@@ -139,6 +139,63 @@ describe("StringBuilder", () => {
         });
     });
 
+    describe("prepend", () => {
+        it("adds value to the beginning", () => {
+            expect(new StringBuilder("world").prepend("hello ").toString()).toBe("hello world");
+        });
+
+        it("ignores null", () => {
+            expect(new StringBuilder("x").prepend(null).toString()).toBe("x");
+        });
+
+        it("returns this for chaining", () => {
+            const sb = new StringBuilder();
+            expect(sb.prepend("x")).toBe(sb);
+        });
+
+        it("chains prepend and append", () => {
+            expect(new StringBuilder("B").prepend("A").append("C").toString()).toBe("ABC");
+        });
+    });
+
+    describe("replace", () => {
+        it("replaces first string occurrence", () => {
+            expect(new StringBuilder("foo foo").replace("foo", "bar").toString()).toBe("bar foo");
+        });
+
+        it("replaces with RegExp", () => {
+            expect(new StringBuilder("hello world").replace(/world/, "there").toString()).toBe("hello there");
+        });
+
+        it("returns this for chaining", () => {
+            const sb = new StringBuilder("x");
+            expect(sb.replace("x", "y")).toBe(sb);
+        });
+
+        it("does nothing on empty builder", () => {
+            expect(new StringBuilder().replace("x", "y").toString()).toBe("");
+        });
+    });
+
+    describe("replaceAll", () => {
+        it("replaces all string occurrences", () => {
+            expect(new StringBuilder("foo foo foo").replaceAll("foo", "bar").toString()).toBe("bar bar bar");
+        });
+
+        it("replaces all with RegExp", () => {
+            expect(new StringBuilder("a1b2c3").replaceAll(/\d/g, "-").toString()).toBe("a-b-c-");
+        });
+
+        it("adds global flag to non-global RegExp", () => {
+            expect(new StringBuilder("aaa").replaceAll(/a/, "b").toString()).toBe("bbb");
+        });
+
+        it("returns this for chaining", () => {
+            const sb = new StringBuilder("x");
+            expect(sb.replaceAll("x", "y")).toBe(sb);
+        });
+    });
+
     describe("appendJoin", () => {
         it("joins array with separator", () => {
             expect(new StringBuilder().appendJoin(["a", "b", "c"], ", ").toString()).toBe("a, b, c");
