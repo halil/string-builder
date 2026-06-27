@@ -2,6 +2,19 @@
 
 const { Stream } = require('stream');
 
+function _applySpec(val, spec) {
+    const str = String(val);
+    switch (spec) {
+        case 'U': return str.toUpperCase();
+        case 'L': return str.toLowerCase();
+        case 'n': {
+            const num = parseFloat(val);
+            return isNaN(num) ? str : num.toLocaleString();
+        }
+        default: return str;
+    }
+}
+
 class StringBuilder extends Stream {
     constructor(v) {
         super();
@@ -49,7 +62,13 @@ class StringBuilder extends Stream {
                 if (s[i + 1] === '{' && s[i + 3] === '}') {
                     r.push(s[i + 1], s[i + 2], s[i + 3]);
                 } else {
-                    r.push(s[i + 1], a[o ? s[i + 2] : parseInt(s[i + 2], 10) + 1], s[i + 3]);
+                    const token = s[i + 2];
+                    const colon = token.indexOf(':');
+                    const key = colon === -1 ? token : token.slice(0, colon);
+                    const spec = colon === -1 ? null : token.slice(colon + 1);
+                    let val = a[o ? key : parseInt(key, 10) + 1];
+                    if (spec !== null && val != null) val = _applySpec(val, spec);
+                    r.push(s[i + 1], val, s[i + 3]);
                 }
             }
         }
