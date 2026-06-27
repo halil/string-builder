@@ -139,6 +139,29 @@ describe("StringBuilder", () => {
         });
     });
 
+    describe("appendJoin", () => {
+        it("joins array with separator", () => {
+            expect(new StringBuilder().appendJoin(["a", "b", "c"], ", ").toString()).toBe("a, b, c");
+        });
+
+        it("joins with empty separator by default", () => {
+            expect(new StringBuilder().appendJoin(["a", "b", "c"]).toString()).toBe("abc");
+        });
+
+        it("works with numbers", () => {
+            expect(new StringBuilder().appendJoin([1, 2, 3], "-").toString()).toBe("1-2-3");
+        });
+
+        it("ignores null array", () => {
+            expect(new StringBuilder().appendJoin(null).toString()).toBe("");
+        });
+
+        it("returns this for chaining", () => {
+            const sb = new StringBuilder();
+            expect(sb.appendJoin(["x"])).toBe(sb);
+        });
+    });
+
     describe("length", () => {
         it("returns 0 for empty builder", () => {
             expect(new StringBuilder().length).toBe(0);

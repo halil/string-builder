@@ -78,6 +78,14 @@ class StringBuilder extends Stream {
         return this;
     }
 
+    appendJoin(arr, sep = '') {
+        if (arr != null) {
+            this.s.push(arr.join(sep));
+        }
+
+        return this;
+    }
+
     get length() {
         return this.s.reduce((sum, part) => sum + String(part).length, 0);
     }
