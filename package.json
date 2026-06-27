@@ -26,5 +26,11 @@
   },
   "bugs": {
     "url": "https://github.com/halil/string-builder/issues"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }
