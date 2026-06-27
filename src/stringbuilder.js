@@ -58,6 +58,8 @@ StringBuilder.prototype.appendFormat = function () {
     }
 
     this.s.push(r.join(''));
+
+    return this;
 };
 
 StringBuilder.prototype.clear = function () {
