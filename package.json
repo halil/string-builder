@@ -18,13 +18,24 @@
   "license": "MIT",
   "keywords": [
     "stringbuilder",
+    "string-builder",
+    "string builder",
     "string",
     "builder",
-    "string-builder",
     "string format",
-    "string builder",
     "format",
-    "nodejs"
+    "string interpolation",
+    "template",
+    "string concat",
+    "string concatenation",
+    "append",
+    "prepend",
+    "replace",
+    "esm",
+    "typescript",
+    "zero-dependency",
+    "nodejs",
+    "node"
   ],
   "readmeFilename": "README.md",
   "repository": {

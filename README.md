@@ -4,7 +4,7 @@
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhalil%2FStringBuilder.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhalil%2FStringBuilder?ref=badge_shield)
 [![NPM](https://nodei.co/npm/string-builder.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/string-builder/)
 
-A fast, zero-dependency string builder for Node.js. Collects string parts in an array and joins them on `toString()` — avoiding the cost of repeated string concatenation.
+A fast, zero-dependency string builder for Node.js with ESM, CommonJS, and TypeScript support. Collects string parts in an array and joins them on `toString()` — avoiding the cost of repeated string concatenation.
 
 ## Installation
 
@@ -39,8 +39,6 @@ import StringBuilder from "string-builder";
 ### Building a plain text report
 
 ```js
-const StringBuilder = require("string-builder");
-
 const users = [
   { name: "Alice", role: "admin" },
   { name: "Bob",   role: "editor" },
@@ -52,7 +50,7 @@ const sb = new StringBuilder("User Report")
   .appendLine("============");
 
 for (const user of users) {
-  sb.appendFormat("- {name} ({role})", user).appendLine();
+  sb.appendFormat("- {name:U} ({role})", user).appendLine();
 }
 
 sb.appendLine("============")
@@ -61,9 +59,9 @@ sb.appendLine("============")
 console.log(sb.toString());
 // User Report
 // ============
-// - Alice (admin)
-// - Bob (editor)
-// - Carol (viewer)
+// - ALICE (admin)
+// - BOB (editor)
+// - CAROL (viewer)
 // ============
 // Total: 3 users
 ```
@@ -73,14 +71,12 @@ console.log(sb.toString());
 ### Building an HTML string
 
 ```js
-const sb = new StringBuilder();
-
 const items = ["Home", "About", "Contact"];
 
-sb.append("<ul>").appendLine();
+const sb = new StringBuilder("<ul>").appendLine();
 
 for (const item of items) {
-  sb.appendFormat('  <li>{0}</li>', item).appendLine();
+  sb.appendFormat("  <li>{0}</li>", item).appendLine();
 }
 
 sb.append("</ul>");
@@ -98,13 +94,16 @@ console.log(sb.toString());
 ### Building a CSV
 
 ```js
+const headers = ["id", "name", "score"];
 const rows = [
   { id: 1, name: "Alice", score: 95.5 },
   { id: 2, name: "Bob",   score: 87.0 },
   { id: 3, name: "Carol", score: 91.3 },
 ];
 
-const sb = new StringBuilder("id,name,score").appendLine();
+const sb = new StringBuilder()
+  .appendJoin(headers, ",")
+  .appendLine();
 
 for (const row of rows) {
   sb.appendFormat("{id},{name},{score}", row).appendLine();
@@ -124,7 +123,7 @@ console.log(sb.toString());
 ```js
 function buildQuery({ table, fields, limit }) {
   return new StringBuilder("SELECT ")
-    .append(fields.join(", "))
+    .appendJoin(fields, ", ")
     .appendFormat(" FROM {0}", table)
     .appendFormat(" LIMIT {0}", limit)
     .toString();
@@ -132,6 +131,63 @@ function buildQuery({ table, fields, limit }) {
 
 console.log(buildQuery({ table: "users", fields: ["id", "name", "email"], limit: 10 }));
 // SELECT id, name, email FROM users LIMIT 10
+```
+
+---
+
+### Format specifiers
+
+```js
+const sb = new StringBuilder();
+
+// :U — uppercase
+sb.appendFormat("Hello, {0:U}!", "world").appendLine();
+// → Hello, WORLD!
+
+// :L — lowercase
+sb.appendFormat("Status: {0:L}", "ACTIVE").appendLine();
+// → Status: active
+
+// :n — thousand separator
+sb.appendFormat("Revenue: {0:n}", 1234567.89).appendLine();
+// → Revenue: 1,234,567.89
+
+// combined with named placeholders
+sb.appendFormat("{name:U} earned {amount:n}", { name: "alice", amount: 95000 });
+// → ALICE earned 95,000
+```
+
+---
+
+### Prepend and replace
+
+```js
+const sb = new StringBuilder("world");
+
+sb.prepend("hello ");
+console.log(sb.toString()); // hello world
+
+sb.replace("world", "there");
+console.log(sb.toString()); // hello there
+
+sb.append(" and back again").replaceAll("a", "@");
+console.log(sb.toString()); // hello there @nd b@ck @g@in
+```
+
+---
+
+### Checking length and emptiness
+
+```js
+const sb = new StringBuilder();
+
+console.log(sb.isEmpty); // true
+console.log(sb.length);  // 0
+
+sb.append("hello world");
+
+console.log(sb.isEmpty); // false
+console.log(sb.length);  // 11
 ```
 
 ---
@@ -178,28 +234,6 @@ console.log(result);
 
 ---
 
-### Named vs positional placeholders in `appendFormat`
-
-```js
-const sb = new StringBuilder();
-
-// Positional — arguments in order
-sb.appendFormat("{0} is {1} years old.", "Alice", 30).appendLine();
-// → Alice is 30 years old.
-
-// Named — object argument
-sb.appendFormat("{name} is {age} years old.", { name: "Bob", age: 25 }).appendLine();
-// → Bob is 25 years old.
-
-// Escaped braces — {{ and }} render as literal { }
-sb.appendFormat("Use {{0}} for the first placeholder.").appendLine();
-// → Use {0} for the first placeholder.
-
-console.log(sb.toString());
-```
-
----
-
 ## API
 
 ### `new StringBuilder(value?)`
@@ -208,6 +242,16 @@ Creates a new instance. Optionally accepts an initial value.
 
 ```js
 const sb = new StringBuilder("initial");
+```
+
+---
+
+### `.prepend(value)` → `this`
+
+Adds a value to the beginning of the buffer. `null` and `undefined` are ignored.
+
+```js
+new StringBuilder("world").prepend("hello ").toString(); // "hello world"
 ```
 
 ---
@@ -235,12 +279,52 @@ sb.appendLine("hello");   // newline + "hello"
 
 ### `.appendFormat(template, ...args)` → `this`
 
-Positional placeholder interpolation using `{0}`, `{1}`, ... syntax. Also supports named placeholders with an object argument. Use `{{...}}` to escape braces.
+Positional `{0}`, `{1}` or named `{key}` placeholder interpolation. Supports format specifiers after a colon. Use `{{...}}` to escape braces.
+
+| Specifier | Effect | Example |
+|---|---|---|
+| `:U` | uppercase | `{0:U}` → `"HELLO"` |
+| `:L` | lowercase | `{0:L}` → `"hello"` |
+| `:n` | thousand separator | `{0:n}` → `"1,234,567"` |
 
 ```js
-sb.appendFormat("{0} + {1} = {2}", 1, 2, 3);       // positional
-sb.appendFormat("Hello, {name}!", { name: "world" }); // named
-sb.appendFormat("{{0}} is literal");                 // escaped → {0}
+sb.appendFormat("{0} + {1} = {2}", 1, 2, 3);              // positional
+sb.appendFormat("Hello, {name}!", { name: "world" });      // named
+sb.appendFormat("{0:U} earned {1:n}", "alice", 95000);     // with specifiers
+sb.appendFormat("{{0}} is literal");                       // escaped → {0}
+```
+
+---
+
+### `.appendJoin(arr, sep?)` → `this`
+
+Appends array elements joined by a separator. Default separator is `""`.
+
+```js
+sb.appendJoin(["a", "b", "c"], ", "); // "a, b, c"
+sb.appendJoin([1, 2, 3], " + ");      // "1 + 2 + 3"
+```
+
+---
+
+### `.replace(search, replacement)` → `this`
+
+Replaces the first occurrence of `search` (string or RegExp) in the buffer.
+
+```js
+sb.replace("foo", "bar");
+sb.replace(/\d+/, "0");
+```
+
+---
+
+### `.replaceAll(search, replacement)` → `this`
+
+Replaces all occurrences of `search` in the buffer. Automatically adds the `g` flag to RegExp if missing.
+
+```js
+sb.replaceAll("foo", "bar");
+sb.replaceAll(/\s+/, "-");
 ```
 
 ---
@@ -266,17 +350,39 @@ sb.append("a").append("b").append("c").toString(); // "abc"
 
 ---
 
+### `.length` → `number`
+
+Returns the total character count of the current buffer without calling `toString()`.
+
+```js
+new StringBuilder("hello").length; // 5
+```
+
+---
+
+### `.isEmpty` → `boolean`
+
+Returns `true` if nothing has been appended yet or after `clear()`.
+
+```js
+new StringBuilder().isEmpty;                      // true
+new StringBuilder("x").isEmpty;                   // false
+new StringBuilder("x").clear().isEmpty;           // true (after clear)
+```
+
+---
+
 ## Chaining
 
 All methods except `clear()` return `this`:
 
 ```js
 const result = new StringBuilder()
-  .append("name: ")
-  .appendFormat("{0}", "Alice")
+  .prepend("START: ")
+  .append("hello world")
+  .replace("world", "there")
   .appendLine()
-  .append("role: ")
-  .appendFormat("{0}", "admin")
+  .appendJoin(["a", "b", "c"], ", ")
   .toString();
 ```
 
