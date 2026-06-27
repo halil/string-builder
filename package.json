@@ -6,16 +6,33 @@
     "name": "Halil İbrahim ŞAFAK",
     "email": "hibrahimsafak@gmail.com"
   },
+  "license": "MIT",
+  "homepage": "https://www.npmjs.com/package/string-builder",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halil/string-builder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/halil/string-builder/issues"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "main": "./src/stringbuilder.js",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./src/stringbuilder.mjs",
       "require": "./src/stringbuilder.js"
     },
     "./src/*": "./src/*"
   },
   "types": "./index.d.ts",
-  "license": "MIT",
+  "files": [
+    "src/",
+    "index.d.ts"
+  ],
+  "sideEffects": false,
   "keywords": [
     "stringbuilder",
     "string-builder",
@@ -37,14 +54,6 @@
     "nodejs",
     "node"
   ],
-  "readmeFilename": "README.md",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/halil/string-builder.git"
-  },
-  "bugs": {
-    "url": "https://github.com/halil/string-builder/issues"
-  },
   "scripts": {
     "test": "jest"
   },
