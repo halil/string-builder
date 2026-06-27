@@ -1,3 +1,7 @@
+# test files
+test/
+package-lock.json
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
