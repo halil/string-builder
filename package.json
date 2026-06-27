@@ -7,6 +7,12 @@
     "email": "hibrahimsafak@gmail.com"
   },
   "main": "./src/stringbuilder.js",
+  "exports": {
+    ".": {
+      "import": "./src/stringbuilder.mjs",
+      "require": "./src/stringbuilder.js"
+    }
+  },
   "types": "./index.d.ts",
   "license": "MIT",
   "keywords": [
