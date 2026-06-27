@@ -78,6 +78,14 @@ class StringBuilder extends Stream {
         return this;
     }
 
+    get length() {
+        return this.s.reduce((sum, part) => sum + String(part).length, 0);
+    }
+
+    get isEmpty() {
+        return this.s.length === 0;
+    }
+
     clear() {
         this.s.length = 0;
     }
