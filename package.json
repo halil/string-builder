@@ -1,7 +1,7 @@
 {
   "name": "string-builder",
-  "description": "Simple Node.JS string builder.",
-  "version": "0.1.8",
+  "description": "A fast, zero-dependency string builder for Node.js with ESM, CommonJS, and TypeScript support.",
+  "version": "1.0.0",
   "author": {
     "name": "Halil İbrahim ŞAFAK",
     "email": "hibrahimsafak@gmail.com"
